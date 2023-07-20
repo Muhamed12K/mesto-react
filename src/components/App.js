@@ -47,24 +47,21 @@ function App() {
         />
         <Footer/>
 
-        <PopupWithForm name="profile" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-          <h3 className="popup__heading popup__heading_type_profile">Редактировать профиль</h3>
+        <PopupWithForm name="profile" title="Редактировать профиль" btnName="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <input id="name-field" className="popup__item popup__item_type_name popup__item_type_name-profile" placeholder="Имя" name="name" type="text" maxLength={40} minLength={2} required=""/>
           <span className="popup__error" id="name-field-error" />
           <input id="info-field" className="popup__item popup__item_type_info popup__item_type_info-profile" placeholder="О себе" name="info" type="text" maxLength={200} minLength={2} required=""/>
           <span className="popup__error popup__error_submit" id="info-field-error"/>
         </PopupWithForm>
 
-        <PopupWithForm name="card" btnName='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-          <h3 className="popup__heading popup__heading_type_card">Новое место</h3>
+        <PopupWithForm name="card" title="Новое место" btnName='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
           <input id="field-card" name="name" className="popup__item popup__item_type_name popup__item_type_name-card" placeholder="Название" maxLength={30} minLength={1} required=""/>
           <span className="popup__error" id="field-card-error" />
           <input id="field-link" name="link" type="url" className="popup__item popup__item_type_info popup__item_type_info-link" placeholder="Ссылка на картинку" required=""/>
           <span className="popup__error popup__error_submit" id="field-link-error"/>
         </PopupWithForm>
 
-        <PopupWithForm name="avatar" btnName='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-          <h3 className="popup__heading popup__heading_type_avatar">Обновить аватар</h3>
+        <PopupWithForm name="avatar" title="Обновить аватар" btnName='Сохранить' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <input id="input-avatar" type="url" name="avatar" className="popup__item  popup__item_type_link" placeholder="Ссылка на аватар" required=""/>
             <span className="popup__error popup__error_submit" id="input-avatar-error" />
         </PopupWithForm>

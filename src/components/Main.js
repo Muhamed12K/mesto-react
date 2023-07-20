@@ -3,18 +3,20 @@ import {api} from "../utils/Api";
 import Card from './Card.js'
 
 function Main(props) {
-    const [userDescription, setUserDescription ] = React.useState();
-    const [userName, setUserName] = React.useState();
-    const [userAvatar, setUserAvatar] = React.useState();
+    const [userDescription, setUserDescription ] = React.useState('');
+    const [userName, setUserName] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
     const [cards, setCard] = React.useState([]);
 
     React.useEffect(() => {
         api.getUserInfoApi()
-            .then((data) => {
-                console.log(data);
+            .then(data => {
                 setUserName(data.name);
                 setUserDescription(data.about);
                 setUserAvatar(data.avatar);
+            })
+            .catch(err => {
+                console.log(err);
             })
     }, []);
 
@@ -22,6 +24,9 @@ function Main(props) {
         api.getInitialCards()
             .then((data) => {
                 setCard(data);
+            })
+            .catch(err => {
+                console.log(err);
             })
     }, []);
 
