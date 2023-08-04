@@ -4,6 +4,7 @@ class Api {
     constructor(config) {
         this._url           = config.url;
         this._headers       = config.headers;
+        this._likesUrl = `${this._url}/cards/likes`;
         this._authorization = config.headers['authorization'];
     }
 
@@ -27,13 +28,13 @@ class Api {
     }
 
     /** Функция добавления новой карточки на сервер */
-    addNewCard(data) {
+    addNewCard({name, link}) {
         return fetch(`${this._url}/cards`, {
             method : 'POST',
             headers: this._headers,
             body   : JSON.stringify({
-                name: data.name,
-                link: data.link,
+                name: name,
+                link: link,
             }),
         })
             .then(res => this._checkResponse(res))
@@ -50,25 +51,25 @@ class Api {
     }
 
     /** Функция передачи данных пользователя с сервера */
-    setUserInfo(data) {
+    setUserInfo({name, about}) {
         return fetch(`${this._url}/users/me`, {
             method : 'PATCH',
             headers: this._headers,
             body   : JSON.stringify({
-                name : data.name,
-                about: data.info, // change info to about
+                name : name,
+                about: about,
             }),
         })
             .then(res => this._checkResponse(res))
     }
 
     /**Функция передачи на сервер нового аватара */
-    setUserAvatar(data) {
+    setUserAvatar(src) {
         return fetch(`${this._url}/users/me/avatar`, {
             method : 'PATCH',
             headers: this._headers,
             body   : JSON.stringify({
-                avatar: data.avatar,
+                avatar: src,
             }),
         })
             .then(res => this._checkResponse(res))
@@ -78,27 +79,32 @@ class Api {
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             method : 'DELETE',
-            headers: this._headers,
+            headers: {
+                authorization: this._authorization,
+            }
         })
-            .then(res => this._checkResponse(res))
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
     }
 
-    /**Функция отправки лайка на сервер */
-    putCardLike(cardId) {
-        return fetch(`${this._url}/cards/${cardId}/likes`, {
-            method : 'PUT',
-            headers: this._headers,
+    //** метод постановки/удаления лайка на карточке */
+    changeLikeCardStatus(cardId, isNotLiked){
+        return fetch(`${this._likesUrl}/${cardId}`, {
+            method: isNotLiked ? "PUT" : "DELETE",
+            headers: {
+                authorization: this._authorization,
+            }
         })
-            .then(res => this._checkResponse(res))
-    }
-
-    /**Функция удаления лайка с сервера */
-    deleteCardLike(cardId) {
-        return fetch(`${this._url}/cards/${cardId}/likes`, {
-            method : 'DELETE',
-            headers: this._headers,
-        })
-            .then(res => this._checkResponse(res))
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
     }
 
 }

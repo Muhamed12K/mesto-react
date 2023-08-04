@@ -1,6 +1,7 @@
 import React from 'react';
 import header_logo from "../images/header_logo.svg";
 
+// Компонент шапки сайта
 function Header() {
     return (
         <div>
