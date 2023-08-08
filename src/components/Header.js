@@ -1,18 +1,16 @@
 import React from 'react';
-import header_logo from "../images/header_logo.svg";
+import headerLogo from "../images/headerLogo.svg";
 
 // Компонент шапки сайта
 function Header() {
     return (
-        <div>
             <header className="header">
                 <img
                     className="header__logo"
-                    src={header_logo}
+                    src={headerLogo}
                     alt="логотип сайта"
                 />
             </header>
-         </div>
     )
 }
 

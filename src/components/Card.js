@@ -34,7 +34,6 @@ function Card(props) {
 
   // РАЗМЕТКА JSX
   return (
-    <article className="card-template">
       <li className="card">
         <img  className="card__image" src={props.card.link} alt={`Фото ${props.card.name}`} onClick={handleClick}/>
         {isOwn && <button className={cardDeleteButtonClassName} type="button" aria-label="Удалить карточку" onClick={handleTrashClick} />}
@@ -46,7 +45,6 @@ function Card(props) {
           </div>
         </div>
       </li>
-    </article>
   )
 }
 

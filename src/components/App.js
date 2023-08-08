@@ -161,8 +161,7 @@ function App() {
     //РАЗМЕТКА JSX
   return (
       <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-          <>
+        <div className="page">
             <Header/>
             <Main
                 onEditAvatar={handleEditAvatarClick}
@@ -211,8 +210,7 @@ function App() {
                 onDeleteCard={handleCardDelete}
                 isRender={renderSaving}
             />
-          </>
-      </div>
+        </div>
       </CurrentUserContext.Provider>
   );
 }
